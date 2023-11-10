@@ -1,24 +1,32 @@
 package main
 
 import (
-	"bufio"
-	// "io"
+	// "bufio"
+	"fmt"
+	"io"
 	"strings"
 )
 
+func scanFromReader(reader io.Reader, template string,
+	vals ...interface{}) (int, error) {
+	return fmt.Fscanf(reader, template, vals...)
+}
+
+func scanSingle(reader io.Reader, val interface{}) (int, error) {
+	return fmt.Fscan(reader, val)
+}
+
 func main() {
-	text := "It was a boat. A small boat."
-	var builder strings.Builder
-	var writer = bufio.NewWriterSize(NewCustomWriter(&builder), 20)
-	for i := 0; true; {
-		end := i + 5
-		if end >= len(text) {
-			writer.Write([]byte(text[i:]))
-			writer.Flush()
+	reader := strings.NewReader("Kayak Watersports $279.00")
+	for {
+		var str string
+		_, err := scanSingle(reader, &str)
+		if err != nil {
+			if err != io.EOF {
+				Printfln("Error: %v", err.Error())
+			}
 			break
 		}
-		writer.Write([]byte(text[i:end]))
-		i = end
+		Printfln("Value: %v", str)
 	}
-	Printfln("Written data: %v", builder.String())
 }
