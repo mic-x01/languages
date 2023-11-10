@@ -5,23 +5,12 @@ import (
 	"strings"
 )
 
-func processData(reader io.Reader, writer io.Writer) {
-	count, err := io.Copy(writer, reader)
-	if err == nil {
-		Printfln("Read %v bytes", count)
-	} else {
-		Printfln("Error: %v", err.Error())
-	}
-}
-
 func main() {
 	r1 := strings.NewReader("Kayak")
 	r2 := strings.NewReader("Lifejacket")
 	r3 := strings.NewReader("Canoe")
 
 	concatReader := io.MultiReader(r1, r2, r3)
-	var writer strings.Builder
-	treeReader := io.TeeReader(concatReader, &writer)
-	ConsumeData(treeReader)
-	Printfln("Echo data: %v", writer.String())
+	limited := io.LimitReader(concatReader, 5)
+	ConsumeData(limited)
 }
