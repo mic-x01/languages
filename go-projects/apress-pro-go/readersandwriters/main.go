@@ -13,8 +13,7 @@ func main() {
 		Product:  &Kayak,
 		Discount: 10.50,
 	}
-	encoder.Encode(&dp)
-	dp2 := DiscountedProduct{Discount: 10.50}
-	encoder.Encode(&dp2)
+	namedItems := []Named{&dp, &Person{PersonName: "Alice"}}
+	encoder.Encode(namedItems)
 	fmt.Print(writer.String())
 }
