@@ -14,6 +14,7 @@ func main() {
 	{"name":"Canoe","category":"Watersports","price":100,"inStock":true}	
 	`)
 	decoder := json.NewDecoder(reader)
+	decoder.DisallowUnknownFields()
 	for {
 		var val Product
 		err := decoder.Decode(&val)
