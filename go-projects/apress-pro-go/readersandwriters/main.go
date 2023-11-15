@@ -8,12 +8,10 @@ import (
 )
 
 func main() {
-	reader := strings.NewReader(`true "Hello" 9.99 200`)
-	var bval bool
-	var sval string
-	var fpval float64
-	var ival int
-	vals := []interface{}{&bval, &sval, &fpval, &ival}
+	reader := strings.NewReader(`[10, 20, 30]["Kayk", "Lifejacket", 279]`)
+	ints := []int{}
+	mixed := []interface{}{}
+	vals := []interface{}{&ints, &mixed}
 	decoder := json.NewDecoder(reader)
 	for i := 0; i < len(vals); i++ {
 		err := decoder.Decode(vals[i])
@@ -22,8 +20,6 @@ func main() {
 			break
 		}
 	}
-	Printfln("Decoded (%T): %v", bval, bval)
-	Printfln("Decoded (%T): %v", sval, sval)
-	Printfln("Decoded (%T): %v", fpval, fpval)
-	Printfln("Decoded (%T): %v", ival, ival)
+	Printfln("Decoded (%T): %v", ints, ints)
+	Printfln("Decoded (%T): %v", mixed, mixed)
 }
