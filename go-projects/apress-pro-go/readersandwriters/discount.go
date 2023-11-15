@@ -4,7 +4,7 @@ import "encoding/json"
 
 type DiscountedProduct struct {
 	*Product `json:",omitempty"`
-	Discount float64 `json:",string"`
+	Discount float64 `json:"offer,string"`
 }
 
 func (dp *DiscountedProduct) MarshalJSON() (jsn []byte, err error) {
