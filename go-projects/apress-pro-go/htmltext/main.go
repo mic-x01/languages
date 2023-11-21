@@ -6,9 +6,11 @@ import (
 )
 
 func main() {
-	t, err := template.ParseFiles("templates/template.html")
+	allTemplates, err := template.ParseFiles("templates/template.html", "templates/extras.html")
 	if err == nil {
-		t.Execute(os.Stdout, &Kayak)
+		allTemplates.ExecuteTemplate(os.Stdout, "template.html", &Kayak)
+		os.Stdout.WriteString("\n")
+		allTemplates.ExecuteTemplate(os.Stdout, "extras.html", &Kayak)
 	} else {
 		Printfln("Error: %v", err.Error())
 	}
