@@ -2,15 +2,15 @@ package main
 
 import (
 	"html/template"
-	"os"
+	// "os"
 )
 
 func main() {
-	allTemplates, err := template.ParseFiles("templates/template.html", "templates/extras.html")
+	allTemplates, err := template.ParseGlob("templates/*.html")
 	if err == nil {
-		allTemplates.ExecuteTemplate(os.Stdout, "template.html", &Kayak)
-		os.Stdout.WriteString("\n")
-		allTemplates.ExecuteTemplate(os.Stdout, "extras.html", &Kayak)
+		for _, t := range allTemplates.Templates() {
+			Printfln("Templates name: %v", t.Name())
+		}
 	} else {
 		Printfln("Error: %v", err.Error())
 	}
