@@ -2,16 +2,21 @@ package main
 
 import (
 	"html/template"
+	"os"
 	// "os"
 )
+
+func Exec(t *template.Template) error {
+	return t.Execute(os.Stdout, &Kayak)
+}
 
 func main() {
 	allTemplates, err := template.ParseGlob("templates/*.html")
 	if err == nil {
-		for _, t := range allTemplates.Templates() {
-			Printfln("Templates name: %v", t.Name())
-		}
-	} else {
+		selectedTemplated := allTemplates.Lookup("template.html")
+		err = Exec(selectedTemplated)
+	}
+	if err != nil {
 		Printfln("Error: %v", err.Error())
 	}
 }
