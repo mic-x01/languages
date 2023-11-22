@@ -13,7 +13,7 @@ func Exec(t *template.Template) error {
 func main() {
 	allTemplates, err := template.ParseGlob("templates/*.html")
 	if err == nil {
-		selectedTemplated := allTemplates.Lookup("template.html")
+		selectedTemplated := allTemplates.Lookup("mainTemplate")
 		err = Exec(selectedTemplated)
 	}
 	if err != nil {
