@@ -1,9 +1,9 @@
 package main
 
 import (
-	"html/template"
 	"os"
 	"strings"
+	"text/template"
 )
 
 func GetCategories(products []Product) (categories []string) {
@@ -31,7 +31,7 @@ func main() {
 		"getCats": GetCategories,
 		"lower":   strings.ToLower,
 	})
-	allTemplates, err := allTemplates.ParseGlob("templates/*.html")
+	allTemplates, err := allTemplates.ParseGlob("templates/*.txt")
 	if err == nil {
 		selectedTemplated := allTemplates.Lookup("mainTemplate")
 		err = Exec(selectedTemplated)
